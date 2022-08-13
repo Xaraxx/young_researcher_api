@@ -63,14 +63,17 @@ async def get_institutions():
     no_record_key = []
     print('total_l =', len(links))
     
-    for item in links:
-        try:
-            profile = item['record']['$ref']
-            profile_links.append(profile)
-        except KeyError:
-            no_record_key.append(item)
-           
-    print(len(no_record_key))
+    def get_links(links):
+        for item in links:
+            try:
+                profile = item['record']['$ref']
+                profile_links.append(profile)
+            except KeyError:
+                no_record_key.append(item)
+        
+        return profile_links
+            
+    get_links(links)
 
     authors_data = []
     def get_authors_data(authors_links):

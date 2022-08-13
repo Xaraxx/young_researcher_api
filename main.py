@@ -62,7 +62,7 @@ async def get_institutions():
     profile_links = []
     no_record_key = []
     print('total_l =', len(links))
-    print(no_record_key)
+    
     for item in links:
         try:
             profile = item['record']['$ref']
@@ -70,8 +70,18 @@ async def get_institutions():
         except KeyError:
             no_record_key.append(item)
            
+    print(len(no_record_key))
 
-    return profile_links
+    authors_data = []
+    def get_authors_data(authors_links):
+        for item in authors_links:
+            get_authors = requests.get(item)
+            authors_data.append(get_authors)
+        return authors_data
+    
+    get_authors_data(profile_links)
+
+    return authors_data
 
     
 

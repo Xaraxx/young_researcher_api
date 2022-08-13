@@ -9,7 +9,7 @@ This steps will help you to run this proyect
 
 After clone this repo, you must create a python virtual environment, this will help you to avoid conflicts between versions of libraries already installed in your computer
 
-To create a python virtual environment using venv, open a terminal and follow this steps:
+To create a python virtual environment using venv, open a terminal, move to the proyect directory, and follow this steps:
 
 If you don't have python3-venv paste this command[^1] in the terminal 
 
@@ -33,3 +33,14 @@ To start using this virtual environment, you need to activate it by running the 
 $ source my-project-env/bin/activate
 ``` 
 
+Once you finished this steps install the project.
+
+### Step two: Installation
+
+To install this proyect in your computer just run this command in a terminal:
+
+```
+$ pip install requirements.txt
+``` 
+
+This command will automatically add and delete modules to requirements.txt installing them using pip.

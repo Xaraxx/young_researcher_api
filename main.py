@@ -20,7 +20,7 @@ async def root():
     """
     return message
 
-@app.get("/institutions-col")
+@app.get("/authors-links")
 async def get_institutions():
     params = {'q':'Colombia'}
     raw_response = requests.get(base_url+'api/institutions', params=params)
@@ -61,31 +61,24 @@ async def get_institutions():
     
     profile_links = []
     no_record_key = []
-    print('total_l =', len(links))
     
-    def get_links(links):
-        for item in links:
-            try:
-                profile = item['record']['$ref']
-                profile_links.append(profile)
-            except KeyError:
-                no_record_key.append(item)
-        
-        return profile_links
-            
-    get_links(links)
+    
+    for item in links:
+        try:
+            profile = item['record']['$ref']
+            profile_links.append(profile)
+        except KeyError:
+            no_record_key.append(item)            
 
     authors_data = []
-    def get_authors_data(authors_links):
-        for item in authors_links:
-            get_authors = requests.get(item)
-            authors_data.append(get_authors)
-        return authors_data
-    
-    get_authors_data(profile_links)
+   
+    return profile_links
 
-    return authors_data
-
+@app.get('/authors-links/author-data')
+async def get_author_data(author_url):
+    author_info = requests.get(author_url)
+    author_info_json = json.loads(author_info)
+    return author_info_json
     
 
     

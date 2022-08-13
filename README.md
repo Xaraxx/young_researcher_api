@@ -44,3 +44,25 @@ $ pip install requirements.txt
 ``` 
 
 This command will automatically add and delete modules to requirements.txt installing them using pip.
+
+### Step three: Set Up
+
+Finally to run the server execute
+
+```
+$  uvicorn main:app --reload
+``` 
+
+To run the server in development mode
+
+```
+$  uvicorn main:app --reload
+```
+
+In the output, there's a line with something like:
+
+
+```
+$  INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+
+```

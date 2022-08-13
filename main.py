@@ -23,7 +23,7 @@ async def root():
 @app.get("/authors-links")
 async def get_institutions():
     params = {'q':'Colombia'}
-    raw_response = requests.get(base_url+'api/institutions', params=params)
+    raw_response =  await requests.get(base_url+'api/institutions', params=params)
     response = json.loads(raw_response.text)
     universities_data = []
     for item in response['hits']['hits']:
@@ -35,7 +35,7 @@ async def get_institutions():
     less_than_ten_articles = []
     for item in universities_data:
         url = base_url+'api/literature?sort=mostrecent&size=50&page=1&q=affid+{}&author_count+10+authors+or+less'.format(item['id'])      
-        articles_with_less_than_ten_authors = requests.get(url)
+        articles_with_less_than_ten_authors = await requests.get(url)
         articles_json = json.loads(articles_with_less_than_ten_authors.text)
         less_than_ten_articles.append(articles_json)
 
@@ -70,14 +70,12 @@ async def get_institutions():
         except KeyError:
             no_record_key.append(item)            
 
-    authors_data = []
-   
     return profile_links
 
 @app.get('/authors-links/author-data')
 async def get_author_data(author_url):
-    author_info = requests.get(author_url)
-    author_info_json = json.loads(author_info)
+    author_info = await requests.get(author_url)
+    author_info_json = json.loads(author_info.text)
     return author_info_json
     
 

@@ -1,9 +1,10 @@
 # Young Researcher test API 👩‍🔬🧑‍🔬👩‍🔬
 
-In this repository you will find the code for the api. This code  correspond to 
+In this repository you will find the code for the api. This code  correspond to an integration with the [inspirehep api](https://inspirehep.net/) wich is used to extract and process some information 
+related to investigators and research institutions from Colombia.
 
 ## How to use it 
-This steps will help you to run this proyect
+This steps will help you to run this proyect.
 
 ### First step: About virtual environments
 
@@ -15,7 +16,6 @@ If you don't have python3-venv paste this command[^1] in the terminal
 
 ```
 $ sudo apt install python3-venv
-
 ``` 
 
 [^1]: Note: this command is valid only for ubuntu OS

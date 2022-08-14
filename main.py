@@ -21,9 +21,9 @@ async def root():
     return message
 
 @app.get("/authors-links")
-async def get_institutions():
+async def get_authors_liks():
     params = {'q':'Colombia'}
-    raw_response =  await requests.get(base_url+'api/institutions', params=params)
+    raw_response =  requests.get(base_url+'api/institutions', params=params)
     response = json.loads(raw_response.text)
     universities_data = []
     for item in response['hits']['hits']:
@@ -34,8 +34,8 @@ async def get_institutions():
 
     less_than_ten_articles = []
     for item in universities_data:
-        url = base_url+'api/literature?sort=mostrecent&size=50&page=1&q=affid+{}&author_count+10+authors+or+less'.format(item['id'])      
-        articles_with_less_than_ten_authors = await requests.get(url)
+        url = base_url+'api/literature?sort=mostrecent&page=1&q=aff+{}+and+ac+1->+10'.format(item['icn_legacy'].replace(' ', '+'))      
+        articles_with_less_than_ten_authors = requests.get(url)
         articles_json = json.loads(articles_with_less_than_ten_authors.text)
         less_than_ten_articles.append(articles_json)
 
@@ -62,20 +62,29 @@ async def get_institutions():
     profile_links = []
     no_record_key = []
     
-    
     for item in links:
         try:
             profile = item['record']['$ref']
             profile_links.append(profile)
         except KeyError:
-            no_record_key.append(item)            
+            no_record_key.append(item)    
+    
+    return profile_links 
 
-    return profile_links
 
 @app.get('/authors-links/author-data')
 async def get_author_data(author_url):
     author_info = await requests.get(author_url)
     author_info_json = json.loads(author_info.text)
+    author_info_filtered = {
+        'name': author_info_json['metadata']['name']['preferred_name'],
+        'email': author_info_json['metadata']['email_addresses'][0]['value'],
+        'position': { 
+            'institution': author_info_json['metadata']['positions'][1]['record']['institution'],
+            'rank': author_info_json['metadata']['positions'][1]['rank']
+        }
+    }
+
     return author_info_json
     
 

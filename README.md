@@ -64,5 +64,4 @@ In the output, there's a line with something like:
 
 ```
 $  INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-
 ```

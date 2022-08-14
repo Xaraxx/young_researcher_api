@@ -80,8 +80,8 @@ async def get_author_data(author_url):
         'name': author_info_json['metadata']['name']['preferred_name'],
         'email': author_info_json['metadata']['email_addresses'][0]['value'],
         'position': { 
-            'institution': author_info_json['metadata']['positions'][1]['record']['institution'],
-            'rank': author_info_json['metadata']['positions'][1]['rank']
+            'institution': author_info_json['metadata']['positions'][0]['record']['institution'],
+            'rank': author_info_json['metadata']['positions'][0]['rank']
         }
     }
 
